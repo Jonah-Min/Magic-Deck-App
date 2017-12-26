@@ -111,7 +111,39 @@ class App extends Component {
 
   clearDeck = () => {
     this.setState({
-      deck: []
+      deck: [],
+      cmc: [[
+        {id: 0, x: "0", y: 0},
+        {id: 1, x: "1", y: 0},
+        {id: 2, x: "2", y: 0},
+        {id: 3, x: "3", y: 0},
+        {id: 4, x: "4", y: 0},
+        {id: 5, x: "5", y: 0},
+        {id: 6, x: "6", y: 0},
+        {id: 7, x: "7+", y: 0},
+      ]],
+      manaCount: [
+        {
+          color: "blue",
+          count: 0
+        },
+        {
+          color: "black",
+          count: 0
+        },
+        {
+          color: "red",
+          count: 0
+        },
+        {
+          color: "green",
+          count: 0
+        },
+        {
+          color: "white",
+          count: 0
+        }
+      ]
     }); 
   }
 
@@ -191,10 +223,10 @@ class App extends Component {
               axes
               xType={'text'}
               margin={{top: 10, right: 10, bottom: 30, left: 30}}
+              areaColors={['white']}
               yDomainRange={[0, 30]}
               yTicks={5}
               width={450}
-              interpolate={'cardinal'}
               height={250}
               data={this.state.cmc}
             />

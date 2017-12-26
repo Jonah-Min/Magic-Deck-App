@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import Lightbox from 'react-image-lightbox';
@@ -9,8 +8,16 @@ import cardList from './cards.json';
 class App extends Component {
   state = {
     cards: cardList.cards,
-    Deck: [],
+    deck: [],
     selectedCard: null,
+  }
+
+  addCard = (card) => {
+    let newDeck = this.state.deck.slice();
+    newDeck.push(card);
+    this.setState({
+      deck: newDeck
+    })
   }
 
   render() {
@@ -26,26 +33,38 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div id="header"> 
-          Magic The Gathering Deck Builder
-        </div>
-
         <div className="container">
-          {this.state.cards.map(card => {
-            return(
-              <div key={card.multiverseid} className='magic-card'>
-                <img 
-                  onClick={(event) => {
-                    this.setState({
-                      selectedCard: event.target.src
-                    })
-                  }} 
-                  src={card.imageUrl}
-                  className='card-image lightbox-trigger'>
-                </img>
-              </div>
-            )
-          })}
+          <div className="cards-container">
+            {this.state.cards.map(card => {
+              return(
+                <div key={card.multiverseid} className='magic-card'>
+                  <img 
+                    onClick={(event) => {
+                      this.setState({
+                        selectedCard: event.target.src
+                      })
+                    }} 
+                    src={card.imageUrl}
+                    className='card-image lightbox-trigger'
+                    alt={card.name}>
+                  </img>
+                  <a className="card-button" onClick={() => this.addCard(card)}>Add Card</a>
+                </div>
+              )
+            })}
+          </div>
+          <div className="card-sidebar">
+            <div className="sidebar-header">
+              Current Deck
+            </div>
+            <div className="deck">
+              {this.state.deck.map(card => {
+                return(
+                  <div className="deck-card">{card.name}</div>
+                )
+              })}
+            </div>
+          </div>
           {cardLightbox}
         </div>
       </div>

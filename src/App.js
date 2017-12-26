@@ -190,7 +190,7 @@ class App extends Component {
               grid
               axes
               xType={'text'}
-              margin={{top: 10, right: 10, bottom: 50, left: 30}}
+              margin={{top: 10, right: 10, bottom: 30, left: 30}}
               yDomainRange={[0, 30]}
               yTicks={5}
               width={450}

@@ -10,38 +10,44 @@ class App extends Component {
   state = {
     cards: cardList.cards,
     Deck: [],
-    cardSelected: false,
     selectedCard: null,
   }
 
-  handleCardClick = (event) => {
-    this.setState({
-      cardSelected: true,
-      selectedCard: event.target.src
-    });
-  }
-
   render() {
-    const {cardSelected} = this.state;
+    let cardLightbox = null;
+
+    if(this.state.selectedCard) {
+      cardLightbox = 
+        <Lightbox
+          mainSrc={this.state.selectedCard}
+          onCloseRequest={() => this.setState({selectedCard: null})}
+        />;
+    }
 
     return (
       <div className="App">
-        {this.state.cards.map(card => {
-          return(
-            <div key={card.multiverseid} className='magic-card'>
-              <img 
-                onClick={this.handleCardClick} 
-                src={card.imageUrl}
-                className='card-image lightbox-trigger'>
-              </img>
-            </div>
-          )
-        })}
-        {cardSelected && 
-          <Lightbox 
-            mainSrc={this.state.selectedCard}
-            onCloseRequest={() => this.setState({cardSelected: false, selectedCard: null})}
-          />}
+        <div id="header"> 
+          Magic The Gathering Deck Builder
+        </div>
+
+        <div className="container">
+          {this.state.cards.map(card => {
+            return(
+              <div key={card.multiverseid} className='magic-card'>
+                <img 
+                  onClick={(event) => {
+                    this.setState({
+                      selectedCard: event.target.src
+                    })
+                  }} 
+                  src={card.imageUrl}
+                  className='card-image lightbox-trigger'>
+                </img>
+              </div>
+            )
+          })}
+          {cardLightbox}
+        </div>
       </div>
     );
   }

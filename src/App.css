@@ -84,16 +84,26 @@
   position: fixed;
   border-left: 10px solid #3CA2A2;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 #sidebar-header {
   display: inline-block;
+  width: 100%;
   line-height: 70px;
   font-size: 30px;
   font-weight: 600;
   left: 0;
   color: #333333;
   text-decoration: underline;
+}
+
+.card-count {
+  font-weight: 100;
+}
+
+.deck {
+  margin-top: 15px;
 }
 
 .magic-card {
@@ -104,6 +114,56 @@
 
 .card-image {
   margin: 5px;
+}
+
+.mana-colors {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.red, .blue, .black, .white, .green {
+  width: 100%;
+  display: inline-block;
+}
+
+.red:before  {
+  display: inline-block;
+  content: url(red.svg);
+  width: 25px;
+  height: 25px;
+}
+
+.blue:before {
+  display: inline-block;
+  content: url(blue.svg);
+  width: 25px;
+  height: 25px;
+}
+
+.black:before {
+  display: inline-block;
+  content: url(black.svg);
+  width: 25px;
+  height: 25px;
+}
+
+.green:before {
+  display: inline-block;
+  content: url(green.svg);
+  width: 25px;
+  height: 25px;
+}
+
+.white:before {
+  display: inline-block;
+  content: url(white.svg);
+  width: 25px;
+  height: 25px;
+}
+
+.mana {
+  display: inline-block;
+  width: 20%;
 }
 
 .deck-card {

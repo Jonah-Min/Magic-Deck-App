@@ -142,37 +142,42 @@
 
 .red:before  {
   display: inline-block;
-  content: url(red.svg);
+  content: url(./images/red.svg);
   width: 25px;
   height: 25px;
 }
 
 .blue:before {
   display: inline-block;
-  content: url(blue.svg);
+  content: url(./images/blue.svg);
   width: 25px;
   height: 25px;
 }
 
 .black:before {
   display: inline-block;
-  content: url(black.svg);
+  content: url(./images/black.svg);
   width: 25px;
   height: 25px;
 }
 
 .green:before {
   display: inline-block;
-  content: url(green.svg);
+  content: url(./images/green.svg);
   width: 25px;
   height: 25px;
 }
 
 .white:before {
   display: inline-block;
-  content: url(white.svg);
+  content: url(./images/white.svg);
   width: 25px;
   height: 25px;
+}
+
+.mana-curve {
+  display: inline-block;
+  margin-top: 15px;
 }
 
 .mana {

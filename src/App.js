@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import {AreaChart} from 'react-easy-chart';
 import elasticlunr from 'elasticlunr';
 import Lightbox from 'react-image-lightbox';
 
@@ -20,6 +21,16 @@ class App extends Component {
     cards: cardList.cards,
     deck: [],
     selectedCard: null,
+    cmc: [[
+      {id: 0, x: "0", y: 0},
+      {id: 1, x: "1", y: 0},
+      {id: 2, x: "2", y: 0},
+      {id: 3, x: "3", y: 0},
+      {id: 4, x: "4", y: 0},
+      {id: 5, x: "5", y: 0},
+      {id: 6, x: "6", y: 0},
+      {id: 7, x: "7+", y: 0},
+    ]],
     manaCount: [
       {
         color: "blue",
@@ -47,6 +58,15 @@ class App extends Component {
   addCard = (card) => {
     let newDeck = this.state.deck.slice();
     let currMana = this.state.manaCount.slice();
+    let newCmc = this.state.cmc.slice();
+
+    let manaCost = card.cmc;
+
+    if (manaCost > 6) {
+      newCmc[0].find((cmc) => {return cmc.id === 7}).y += 1;
+    } else {
+      newCmc[0].find((cmc) => {return cmc.id === manaCost}).y += 1;
+    }
 
     newDeck.push(card);
 
@@ -57,13 +77,23 @@ class App extends Component {
 
     this.setState({
       deck: newDeck,
-      manaCount: currMana
+      manaCount: currMana,
+      cmc: newCmc
     })
   }
 
   removeCard = (card) => {
     let newDeck = this.state.deck.slice();
     let currMana = this.state.manaCount.slice();
+    let newCmc = this.state.cmc.slice();
+
+    let manaCost = card.cmc;
+
+    if (manaCost > 6) {
+      newCmc[0].find((cmc) => {return cmc.id === 7}).y -= 1;
+    } else {
+      newCmc[0].find((cmc) => {return cmc.id === manaCost}).y -= 1;
+    }
 
     newDeck.splice(newDeck.indexOf(card), 1);
     
@@ -74,7 +104,8 @@ class App extends Component {
 
     this.setState({
       deck: newDeck,
-      manaCount: currMana
+      manaCount: currMana,
+      cmc: newCmc
     });
   }
 
@@ -110,7 +141,7 @@ class App extends Component {
             <div className="card-list">
               {this.state.cards.map(card => {
                 return(
-                  <div key={card.multiverseid} className='magic-card'>
+                  <div key={card.id} className='magic-card'>
                     <img 
                       onClick={(event) => {
                         this.setState({
@@ -142,6 +173,20 @@ class App extends Component {
                 )
               })}
             </div>
+            <span className='mana-curve'>Mana Curve</span>
+            <AreaChart
+              verticalGrid
+              grid
+              axes
+              xType={'text'}
+              margin={{top: 10, right: 10, bottom: 50, left: 30}}
+              yDomainRange={[0, 30]}
+              yTicks={5}
+              width={450}
+              interpolate={'cardinal'}
+              height={250}
+              data={this.state.cmc}
+            />
             <div className="deck">
               {this.state.deck.map(card => {
                 return(

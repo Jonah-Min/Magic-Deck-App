@@ -35,26 +35,31 @@ class App extends Component {
       <div className="App">
         <div className="container">
           <div className="cards-container">
-            {this.state.cards.map(card => {
-              return(
-                <div key={card.multiverseid} className='magic-card'>
-                  <img 
-                    onClick={(event) => {
-                      this.setState({
-                        selectedCard: event.target.src
-                      })
-                    }} 
-                    src={card.imageUrl}
-                    className='card-image lightbox-trigger'
-                    alt={card.name}>
-                  </img>
-                  <a className="card-button" onClick={() => this.addCard(card)}>Add Card</a>
-                </div>
-              )
-            })}
+            <div id="header">
+              Card List
+            </div>
+            <div className="card-list">
+              {this.state.cards.map(card => {
+                return(
+                  <div key={card.multiverseid} className='magic-card'>
+                    <img 
+                      onClick={(event) => {
+                        this.setState({
+                          selectedCard: event.target.src
+                        })
+                      }} 
+                      src={card.imageUrl}
+                      className='card-image lightbox-trigger'
+                      alt={card.name}>
+                    </img>
+                    <a className="card-button" onClick={() => this.addCard(card)}>Add Card</a>
+                  </div>
+                )
+              })}
+            </div>
           </div>
           <div className="card-sidebar">
-            <div className="sidebar-header">
+            <div id="sidebar-header">
               Current Deck
             </div>
             <div className="deck">

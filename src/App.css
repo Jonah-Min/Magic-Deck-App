@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .App-logo {
@@ -28,10 +29,27 @@
 }
 
 .cards-container {
-  padding-top: 20px;
   display: inline-block;
   float: left;
   width: 67%;
+  background-color: #215A6D;
+}
+
+#header {
+  display: inline-block;
+  line-height: 70px;
+  background-color: #2D2D29;
+  font-size: 27px;
+  font-weight: 600;
+  width: 67%;
+  position: fixed;
+  left: 0;
+  color: #f5f5f5;
+}
+
+.card-list {
+  display: inline-block;
+  margin-top: 85px;
 }
 
 .card-image {
@@ -45,8 +63,10 @@
   color: #fff;
   display: inline-block;
   width: 85%;
-  background-color: #55acee;
-  box-shadow: 0px 5px 0px 0px #3C93D5;
+  background-color: #3CA2A2;
+  box-shadow: 0px 5px 0px 0px #2D2D29;
+  cursor: pointer;
+  user-select: none;
 }
 
 .card-button:active {
@@ -60,8 +80,20 @@
   right: 0;
   width: 33%;
   height: 100%;
-  background-color: grey;
+  background-color: #92C7A3;
   position: fixed;
+  border-left: 10px solid #3CA2A2;
+  box-sizing: border-box;
+}
+
+#sidebar-header {
+  display: inline-block;
+  line-height: 70px;
+  font-size: 27px;
+  font-weight: 600;
+  left: 0;
+  color: #333333;
+  text-decoration: underline;
 }
 
 .magic-card {
@@ -72,4 +104,8 @@
 
 .card-image {
   margin: 5px;
+}
+
+.deck-card {
+  font-weight: 100;
 }

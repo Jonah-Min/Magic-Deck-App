@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import elasticlunr from 'elasticlunr';
 import Lightbox from 'react-image-lightbox';
 
 import cardList from './cards.json';
+
+const searchFields = {
+  fields: {
+    name: {
+      boost: 4,
+    }
+  },
+  expand: true,
+};
 
 class App extends Component {
   state = {
@@ -32,7 +42,7 @@ class App extends Component {
         count: 0
       }
     ]
-  }
+  };
 
   addCard = (card) => {
     let newDeck = this.state.deck.slice();
@@ -42,13 +52,30 @@ class App extends Component {
 
     for (let i = 0; i < card.colors.length; i++) {
       let color = card.colors[i].toLowerCase();
-      currMana.find((mana) => {return mana.color == color}).count += 1;
+      currMana.find((mana) => {return mana.color === color}).count += 1;
     }
 
     this.setState({
       deck: newDeck,
       manaCount: currMana
     })
+  }
+
+  removeCard = (card) => {
+    let newDeck = this.state.deck.slice();
+    let currMana = this.state.manaCount.slice();
+
+    newDeck.splice(newDeck.indexOf(card), 1);
+    
+    for (let i = 0; i < card.colors.length; i++) {
+      let color = card.colors[i].toLowerCase();
+      currMana.find((mana) => {return mana.color === color}).count -= 1;
+    }
+
+    this.setState({
+      deck: newDeck,
+      manaCount: currMana
+    });
   }
 
   render() {
@@ -72,6 +99,13 @@ class App extends Component {
           <div className="cards-container">
             <div id="header">
               Card List
+              <input
+                type='input'
+                className='search-field'
+                placeholder='Search Card'
+                ref={(search) => { this.search = search }}
+                onChange={this.handleSearch}
+              ></input>
             </div>
             <div className="card-list">
               {this.state.cards.map(card => {
@@ -122,6 +156,7 @@ class App extends Component {
                       alt={card.name} 
                       className='card-image-small'/>
                     <span className="card-name">{card.name}</span>
+                    <a className="deck-button" onClick={() => this.removeCard(card)}>Remove</a>
                   </div>
                 )
               })}

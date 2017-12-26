@@ -24,9 +24,13 @@ class App extends Component {
     let cardLightbox = null;
 
     if(this.state.selectedCard) {
+      let {selectedCard} = this.state;
+
       cardLightbox = 
         <Lightbox
-          mainSrc={this.state.selectedCard}
+          mainSrc={selectedCard.imageUrl}
+          imageTitle={selectedCard.name}
+          imageCaption={selectedCard.text }
           onCloseRequest={() => this.setState({selectedCard: null})}
         />;
     }
@@ -45,7 +49,7 @@ class App extends Component {
                     <img 
                       onClick={(event) => {
                         this.setState({
-                          selectedCard: event.target.src
+                          selectedCard: card
                         })
                       }} 
                       src={card.imageUrl}
@@ -65,7 +69,10 @@ class App extends Component {
             <div className="deck">
               {this.state.deck.map(card => {
                 return(
-                  <div className="deck-card">{card.name}</div>
+                  <div className="deck-card">
+                    <img src={card.imageUrl} alt={card.name} className='card-image-small'/>
+                    <span className="card-name">{card.name}</span>
+                  </div>
                 )
               })}
             </div>

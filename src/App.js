@@ -109,8 +109,19 @@ class App extends Component {
     });
   }
 
+  clearDeck = () => {
+    this.setState({
+      deck: []
+    }); 
+  }
+
   render() {
     let cardLightbox = null;
+    let clearAllButton = null;
+
+    if(this.state.deck.length) {
+      clearAllButton = <a className="clear-button" onClick={this.clearDeck}>Clear All</a>
+    }
 
     if(this.state.selectedCard) {
       let {selectedCard} = this.state;
@@ -188,6 +199,7 @@ class App extends Component {
               data={this.state.cmc}
             />
             <div className="deck">
+              {clearAllButton}
               {this.state.deck.map(card => {
                 return(
                   <div className="deck-card">

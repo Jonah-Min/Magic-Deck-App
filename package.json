@@ -5,7 +5,9 @@
   "dependencies": {
     "elasticlunr": "^0.9.5",
     "react": "^16.2.0",
+    "react-bar-chart": "^0.1.2",
     "react-dom": "^16.2.0",
+    "react-easy-chart": "^1.0.0",
     "react-image-lightbox": "^4.4.0",
     "react-scripts": "1.0.17"
   },

@@ -20,6 +20,7 @@ class App extends Component {
   state = {
     cards: cardList.cards,
     deck: [],
+    cardCount: 0,
     selectedCard: null,
     cmc: [[
       {id: 0, x: "0", y: 0},
@@ -32,6 +33,10 @@ class App extends Component {
       {id: 7, x: "7+", y: 0},
     ]],
     manaCount: [
+      {
+        color: "white",
+        count: 0
+      },
       {
         color: "blue",
         count: 0
@@ -48,10 +53,6 @@ class App extends Component {
         color: "green",
         count: 0
       },
-      {
-        color: "white",
-        count: 0
-      }
     ]
   };
 
@@ -62,6 +63,7 @@ class App extends Component {
     let newDeck = this.state.deck.slice();
     let currMana = this.state.manaCount.slice();
     let newCmc = this.state.cmc.slice();
+    let newCount = this.state.cardCount + 1;
 
     let manaCost = card.cmc;
 
@@ -89,7 +91,8 @@ class App extends Component {
     this.setState({
       deck: newDeck,
       manaCount: currMana,
-      cmc: newCmc
+      cmc: newCmc,
+      cardCount: newCount,
     })
   }
 
@@ -100,6 +103,7 @@ class App extends Component {
     let newDeck = this.state.deck.slice();
     let currMana = this.state.manaCount.slice();
     let newCmc = this.state.cmc.slice();
+    let newCount = this.state.cardCount - 1;
 
     let manaCost = card.cmc;
 
@@ -128,7 +132,8 @@ class App extends Component {
     this.setState({
       deck: newDeck,
       manaCount: currMana,
-      cmc: newCmc
+      cmc: newCmc,
+      cardCount: newCount,
     });
   }
 
@@ -169,7 +174,8 @@ class App extends Component {
           color: "white",
           count: 0
         }
-      ]
+      ],
+      cardCount: 0,
     }); 
   }
 
@@ -231,7 +237,7 @@ class App extends Component {
             <div id="sidebar-header">
               Current Deck
             </div>
-            <span className="card-count">Card Count: {this.state.deck.length}</span>
+            <span className="card-count">Card Count: {this.state.cardCount}</span>
             <div className="mana-colors">
               {this.state.manaCount.map(mana => {
                 return(

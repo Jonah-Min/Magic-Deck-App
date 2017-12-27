@@ -68,6 +68,7 @@
 
 .card-image {
   display: inline-block;
+  box-shadow: 0px 0px 89px -26px white;
 }
 
 .card-button {
@@ -123,7 +124,7 @@
   box-shadow: 0px 4px 0px 0px #2D2D29;
   cursor: pointer;
   user-select: none;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .card-count {
@@ -201,34 +202,97 @@
 
 .deck-card {
   float: left;
-  padding: 1%;
   display: inline-block;
-  width: 23%;
+  width: 99%;
+  margin-bottom: 20px;
+  position: relative;
 }
 
 .deck-button {
   border-radius: 5px;
-  line-height: 20px;
+  line-height: 25px;
   text-decoration: none;
   color: #fff;
   display: inline-block;
-  width: 100%;
+  width: 70%;
   background-color: #3CA2A2;
   box-shadow: 0px 2px 0px 0px #2D2D29;
   cursor: pointer;
   user-select: none;
+  bottom: 3%;
+  right: 1%;
+  position: absolute;
 }
 
 .card-name {
+  text-align: left;
+  padding-left: 2%;
   display: inline-block;
-  width: 100%;
-  height: 25px;
+  width: 45%;
+  line-height: 20px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.card-deck-count {
+  text-align: right;
+  display: inline-block;
+  padding-right: 2%;
+  width: 23%;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 200;
+}
+
+.card-color {
+  text-align: left;
+  display: inline-block;
+  padding-left: 2%;
+  width: 34%;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 200;
+}
+
+.card-cmc {
+  text-align: right;
+  display: inline-block;
+  padding-right: 2%;
+  width: 34%;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 200;
+}
+
+.card-text {
+  display: inline-block;
+  height: 85px;
+  text-overflow: ellipsis;
+  overflow-y: scroll;
+  width: 68%;
+  padding: 1% 2% 0 2%;
+  text-align: left;
+  border: 2px solid #333;
+  box-sizing: border-box;
+  font-weight: 200;
+  margin-top: 4px;
+}
+
+.bold {
   font-weight: 500;
 }
 
 .card-image-small {
-  width: 100%;
+  width: 25%;
+  float: left;
+  padding-left: 2%;
 }

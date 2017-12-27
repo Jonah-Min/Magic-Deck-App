@@ -55,6 +55,9 @@ class App extends Component {
     ]
   };
 
+  /*
+   *  Add one instance of card to state deck
+   */
   addCard = (card) => {
     let newDeck = this.state.deck.slice();
     let currMana = this.state.manaCount.slice();
@@ -62,14 +65,22 @@ class App extends Component {
 
     let manaCost = card.cmc;
 
+    // Increment manacurve for given card
     if (manaCost > 6) {
       newCmc[0].find((cmc) => {return cmc.id === 7}).y += 1;
     } else {
       newCmc[0].find((cmc) => {return cmc.id === manaCost}).y += 1;
     }
 
-    newDeck.push(card);
+    // Either add to the deck or increment the count of the card
+    if (newDeck.find((c) => {return c.name == card.name})) {
+      newDeck.find((c) => {return c.name == card.name}).count += 1;
+    } else {
+      card.count = 1;
+      newDeck.push(card);
+    }
 
+    // Update the count for the mana color
     for (let i = 0; i < card.colors.length; i++) {
       let color = card.colors[i].toLowerCase();
       currMana.find((mana) => {return mana.color === color}).count += 1;
@@ -82,6 +93,9 @@ class App extends Component {
     })
   }
 
+  /*
+   *  Remove one instance of card from state deck
+   */
   removeCard = (card) => {
     let newDeck = this.state.deck.slice();
     let currMana = this.state.manaCount.slice();
@@ -89,14 +103,23 @@ class App extends Component {
 
     let manaCost = card.cmc;
 
+    // Decrement mana curve amount
     if (manaCost > 6) {
       newCmc[0].find((cmc) => {return cmc.id === 7}).y -= 1;
     } else {
       newCmc[0].find((cmc) => {return cmc.id === manaCost}).y -= 1;
     }
 
-    newDeck.splice(newDeck.indexOf(card), 1);
+    let cardInDeck = newDeck.find((c) => {return c.name == card.name});
+
+    // Decrement or remove the card from the deck
+    if (cardInDeck.count == 1) {
+      newDeck.splice(newDeck.indexOf(card), 1);
+    } else {
+      cardInDeck.count -= 1;
+    }
     
+    // Decrement count for mana color
     for (let i = 0; i < card.colors.length; i++) {
       let color = card.colors[i].toLowerCase();
       currMana.find((mana) => {return mana.color === color}).count -= 1;
@@ -109,6 +132,9 @@ class App extends Component {
     });
   }
 
+  /*
+   * Remove Evercard from the current deck
+   */
   clearDeck = () => {
     this.setState({
       deck: [],
@@ -245,6 +271,10 @@ class App extends Component {
                       alt={card.name} 
                       className='card-image-small'/>
                     <span className="card-name">{card.name}</span>
+                    <span className="card-deck-count"><strong className="bold">Count: </strong>{card.count}</span>
+                    <span className="card-color"><strong className="bold">Color(s): </strong>{card.colors.join(", ")}</span>
+                    <span className="card-cmc"><strong className="bold">Converted Cost: </strong>{card.cmc}</span>
+                    <span className="card-text">{card.text}</span>
                     <a className="deck-button" onClick={() => this.removeCard(card)}>Remove</a>
                   </div>
                 )

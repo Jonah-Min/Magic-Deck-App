@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Card extends React.Component {
+	static propTypes = {
+		card: PropTypes.object.isRequired,
+		addCard: PropTypes.func.isRequired,
+		setCard: PropTypes.func.isRequired
+	}
+
 	constructor(props) {
 		super(props);
 	}

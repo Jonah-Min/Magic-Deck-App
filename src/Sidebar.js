@@ -1,8 +1,19 @@
 import React, {Component} from 'react';
 import DeckCard from './DeckCard.js';
 import {AreaChart} from 'react-easy-chart';
+import PropTypes from 'prop-types';
 
 class Sidebar extends React.Component {
+
+	static propTypes = {
+		cardCount: PropTypes.number.isRequired,
+		clearDeck: PropTypes.func.isRequired,
+		setCard: PropTypes.func.isRequired,
+		removeCard: PropTypes.func.isRequired,
+		cmc: PropTypes.array.isRequired,
+		manaCount: PropTypes.array.isRequired,
+		deck: PropTypes.array.isRequired
+	}
 	
 	constructor(props) {
 		super(props);

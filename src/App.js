@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import {AreaChart} from 'react-easy-chart';
 import elasticlunr from 'elasticlunr';
 import Lightbox from 'react-image-lightbox';
 
 import cardList from './cards.json';
+import Card from './Card.js';
+import Sidebar from './Sidebar.js';
 
 const searchFields = {
   fields: {
@@ -137,6 +138,12 @@ class App extends Component {
     });
   }
 
+  updateSelectedCard = (card) => {
+    this.setState({
+      selectedCard: card
+    });
+  }
+
   /*
    * Remove Evercard from the current deck
    */
@@ -181,11 +188,6 @@ class App extends Component {
 
   render() {
     let cardLightbox = null;
-    let clearAllButton = null;
-
-    if(this.state.deck.length) {
-      clearAllButton = <a className="clear-button" onClick={this.clearDeck}>Clear All</a>
-    }
 
     if(this.state.selectedCard) {
       let {selectedCard} = this.state;
@@ -216,77 +218,24 @@ class App extends Component {
             <div className="card-list">
               {this.state.cards.map(card => {
                 return(
-                  <div key={card.id} className='magic-card'>
-                    <img 
-                      onClick={(event) => {
-                        this.setState({
-                          selectedCard: card
-                        })
-                      }} 
-                      src={card.imageUrl}
-                      className='card-image lightbox-trigger'
-                      alt={card.name}>
-                    </img>
-                    <a className="card-button" onClick={() => this.addCard(card)}>Add Card</a>
-                  </div>
+                  <Card
+                    setCard={this.updateSelectedCard}
+                    addCard={this.addCard}
+                    card={card}
+                  />
                 )
               })}
             </div>
           </div>
-          <div className="card-sidebar">
-            <div id="sidebar-header">
-              Current Deck
-            </div>
-            <span className="card-count">Card Count: {this.state.cardCount}</span>
-            <div className="mana-colors">
-              {this.state.manaCount.map(mana => {
-                return(
-                  <div key={mana.color} className="mana">
-                    <span className={mana.color}></span>
-                    <span className="mana-count">{mana.count}</span>
-                  </div>
-                )
-              })}
-            </div>
-            <span className='mana-curve'>Mana Curve</span>
-            <AreaChart
-              verticalGrid
-              grid
-              axes
-              xType={'text'}
-              margin={{top: 10, right: 10, bottom: 30, left: 30}}
-              areaColors={['white']}
-              yDomainRange={[0, 30]}
-              yTicks={5}
-              width={450}
-              height={250}
-              data={this.state.cmc}
-            />
-            <div className="deck">
-              {clearAllButton}
-              {this.state.deck.map(card => {
-                return(
-                  <div className="deck-card">
-                    <img
-                      onClick={(event) => {
-                        this.setState({
-                          selectedCard: card
-                        })
-                      }}  
-                      src={card.imageUrl} 
-                      alt={card.name} 
-                      className='card-image-small'/>
-                    <span className="card-name">{card.name}</span>
-                    <span className="card-deck-count"><strong className="bold">Count: </strong>{card.count}</span>
-                    <span className="card-color"><strong className="bold">Color(s): </strong>{card.colors.join(", ")}</span>
-                    <span className="card-cmc"><strong className="bold">Converted Cost: </strong>{card.cmc}</span>
-                    <span className="card-text">{card.text}</span>
-                    <a className="deck-button" onClick={() => this.removeCard(card)}>Remove</a>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
+          <Sidebar
+            cardCount={this.state.cardCount}
+            manaCount={this.state.manaCount}
+            cmc={this.state.cmc}
+            deck={this.state.deck}
+            clearDeck={this.clearDeck}
+            setCard={this.updateSelectedCard}
+            removeCard={this.removeCard}
+          />
           {cardLightbox}
         </div>
       </div>
